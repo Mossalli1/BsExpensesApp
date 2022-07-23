@@ -17,7 +17,7 @@ import {
 } from '@react-navigation/drawer';
 
 //Screens
-import HomeScreen from './src/screens/home';
+import HomeScreen from './src/screens/Home';
 import ExpensesLog from './src/screens/expensesLog';
 
 // function Feed({navigation}) {
@@ -52,9 +52,18 @@ function MyDrawer() {
   return (
     <Drawer.Navigator
       useLegacyImplementation={true}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="ExpensesLog" component={ExpensesLog} />
+      // drawerContent={props => <CustomDrawerContent {...props} />}
+    >
+      <Drawer.Screen
+        name="Home"
+        options={{drawerLabel: 'Home', headerTitle: 'Expenses App'}}
+        component={HomeScreen}
+      />
+      <Drawer.Screen
+        name="ExpensesLog"
+        options={{drawerLabel: 'Expenses Log', headerTitle: 'Expenses Log'}}
+        component={ExpensesLog}
+      />
     </Drawer.Navigator>
   );
 }
