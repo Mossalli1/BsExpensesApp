@@ -18,7 +18,7 @@ import {
 
 //Screens
 import HomeScreen from './src/screens/Home';
-import ExpensesLog from './src/screens/expensesLog';
+import ExpensesLog from './src/screens/ExpensesLog';
 
 // function Feed({navigation}) {
 //   return (

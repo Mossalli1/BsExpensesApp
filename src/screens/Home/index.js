@@ -11,19 +11,19 @@ const HomeScreen = ({navigation}) => {
   // console.log('HomeScreen', date);
   const data = [
     {
-      espensesPurpose: 'Food',
+      espensesPurpose: 'Bought',
       amount: 100,
       category: 'Food',
       date: '2022-07-23T17:06:31.635Z',
     },
     {
-      espensesPurpose: 'Home rent',
+      espensesPurpose: 'Current bill payment',
       amount: 120,
       category: 'Home rent',
       date: '2022-07-23T17:07:31.635Z',
     },
     {
-      espensesPurpose: 'Home rent',
+      espensesPurpose: 'Home rent payment',
       amount: 120,
       category: 'Home rent',
       date: '2022-07-23T17:07:31.635Z',
