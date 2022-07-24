@@ -37,6 +37,7 @@ export const Styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     alignSelf: 'flex-end',
+    paddingHorizontal: 10,
   },
   filterTextContainer: {
     flexDirection: 'row',

@@ -49,7 +49,7 @@ export const Styles = StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    alignSelf: '',
+    // alignSelf: '',
     // top: 0,
     // bottom: -100,
   },

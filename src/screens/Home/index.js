@@ -42,15 +42,19 @@ const HomeScreen = ({navigation}) => {
   const [categoryName, setCategoryName] = React.useState('');
 
   const addCategory = async () => {
-    let dateTime = new Date();
-    let categoryData = {
-      espensesPurpose: '',
-      amount: 0,
-      category: categoryName,
-      date: dateTime,
-    };
-    data.push(categoryData);
-    setModalVisible(!modalVisible);
+    if (categoryName !== '') {
+      let dateTime = new Date();
+      let categoryData = {
+        espensesPurpose: '',
+        amount: 0,
+        category: categoryName,
+        date: dateTime,
+      };
+      data.push(categoryData);
+      setModalVisible(!modalVisible);
+    } else {
+      alert('Please enter category name');
+    }
   };
 
   const renderExpensesCard = ({item}) => (
@@ -101,8 +105,9 @@ const HomeScreen = ({navigation}) => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
+        hardwareAccelerated={true}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          // Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
         <View style={Styles.modalContainer}>
@@ -118,12 +123,12 @@ const HomeScreen = ({navigation}) => {
               <Button
                 onPress={() => setModalVisible(!modalVisible)}
                 title="Cancel"
-                accessibilityLabel="Learn more about this purple button"
+                // accessibilityLabel="Learn more about this purple button"
               />
               <Button
                 onPress={() => addCategory()}
                 title="Add"
-                accessibilityLabel="Learn more about this purple button"
+                // accessibilityLabel="Learn more about this purple button"
               />
             </View>
           </View>
