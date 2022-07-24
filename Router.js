@@ -56,7 +56,7 @@ function MyDrawer() {
     >
       <Drawer.Screen
         name="Home"
-        options={{drawerLabel: 'Home', headerTitle: 'Expenses App'}}
+        options={{drawerLabel: 'Home', headerTitle: 'Home'}}
         component={HomeScreen}
       />
       <Drawer.Screen
