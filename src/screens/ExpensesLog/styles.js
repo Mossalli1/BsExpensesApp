@@ -82,8 +82,9 @@ export const Styles = StyleSheet.create({
     // alignSelf: 'flex-end',
   },
   modalButtonContainer: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   filteredItemContainer: {
     alignItems: 'flex-start',

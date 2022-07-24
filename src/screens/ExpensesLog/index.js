@@ -135,23 +135,30 @@ const ExpensesLog = ({navigation}) => {
         <View style={Styles.modalContainer}>
           <View style={Styles.modalItemContainer}>
             <View style={Styles.filteredItemContainer}>
-              {uniqueFilterCategory.map((item, key) => (
-                <TouchableOpacity
-                  key={key}
-                  style={Styles.filteredItemButton}
-                  onPress={() => {
-                    filterAction(item);
-                  }}>
-                  <Text style={{fontSize: 16}}>{item}</Text>
-                </TouchableOpacity>
-              ))}
+              {uniqueFilterCategory.length > 0 ? (
+                uniqueFilterCategory.map((item, key) => (
+                  <TouchableOpacity
+                    key={key}
+                    style={Styles.filteredItemButton}
+                    onPress={() => {
+                      filterAction(item);
+                    }}>
+                    <Text style={{fontSize: 16}}>{item}</Text>
+                  </TouchableOpacity>
+                ))
+              ) : (
+                <Text>No Filter Items Found! </Text>
+              )}
             </View>
             <View style={Styles.modalButtonContainer}>
               <Button
                 onPress={() => setFilterStatus(!filterStatus)}
-                title="Cancel"
+                title="Close"
               />
-              <Button onPress={() => addCategory()} title="Filter" />
+              {/* <Button
+                onPress={() => setFilterStatus(!filterStatus)}
+                title="Filter"
+              /> */}
             </View>
           </View>
         </View>
