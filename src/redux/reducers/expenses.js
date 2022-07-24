@@ -4,7 +4,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const expenses = createSlice({
   name: 'expenses',
   initialState: {
-    value: null,
+    value: [],
   },
   reducers: {
     valueSuccess: (state, action) => {
