@@ -38,9 +38,9 @@ const ExpensesLog = ({navigation}) => {
       date: '2022-07-23T17:07:31.635Z',
     },
     {
-      espensesPurpose: 'Home rent payment',
+      espensesPurpose: 'House tutoring',
       amount: 120,
-      category: 'Home rent',
+      category: 'Childs education',
       date: '2022-07-23T17:07:31.635Z',
     },
   ];

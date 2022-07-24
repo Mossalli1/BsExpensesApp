@@ -43,4 +43,28 @@ export const Styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 5,
   },
+  modalContainer: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    alignSelf: '',
+    // top: 0,
+    // bottom: -100,
+  },
+  modalItemContainer: {
+    backgroundColor: '#fff',
+    height: '50%',
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 15,
+    paddingBottom: 30,
+    // alignSelf: 'flex-end',
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
