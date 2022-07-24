@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const {height, width} = Dimensions.get('window');
+
 export const Styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -66,5 +68,10 @@ export const Styles = StyleSheet.create({
   modalButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  emptyListContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: height / 1.8,
   },
 });

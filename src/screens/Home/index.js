@@ -35,7 +35,8 @@ const HomeScreen = ({navigation}) => {
 
   //get data from redux
   const getFromRedux = useSelector(state => state.expenses);
-  data = JSON.parse(getFromRedux.value);
+  console.log('getFromRedux', getFromRedux);
+  data = getFromRedux.value.length > 0 ? JSON.parse(getFromRedux.value) : [];
 
   const addCategory = async () => {
     if (categoryName !== '') {
@@ -44,7 +45,7 @@ const HomeScreen = ({navigation}) => {
         date: dateTime,
         expenses: [
           {
-            category: 'categoryName',
+            category: categoryName,
             espensesPurpose: '',
             amount: 0,
             date: dateTime,
@@ -138,6 +139,11 @@ const HomeScreen = ({navigation}) => {
         renderItem={renderExpensesCard}
         keyExtractor={(item, index) => index}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <View style={Styles.emptyListContainer}>
+            <Text>No Expenses Found! Please Add Category.</Text>
+          </View>
+        )}
       />
       <TouchableOpacity
         style={Styles.buttonStyle}

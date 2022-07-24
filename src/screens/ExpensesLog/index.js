@@ -17,7 +17,7 @@ let data = [];
 
 const ExpensesLog = ({navigation}) => {
   const getFromRedux = useSelector(state => state.expenses);
-  data = JSON.parse(getFromRedux.value);
+  data = getFromRedux.value.length > 0 ? JSON.parse(getFromRedux.value) : [];
 
   let newItems = data.map(item => {
     return {
@@ -28,12 +28,17 @@ const ExpensesLog = ({navigation}) => {
 
   let allData = [];
   newItems.forEach(item => {
-    item.expenses.forEach(exp => allData.push(exp));
+    item.expenses.forEach(exp => {
+      allData.push(exp);
+    });
   });
+
+  let itemsWithoutZeroAmount = allData.filter(items => items.amount !== 0);
   let totalExpensesAmount = newItems.reduce(
     (total, obj) => obj.subTotal + total,
     0,
   );
+
   const renderAllExpensesLogCard = ({item}) => (
     <View style={Styles.expenseCard}>
       <View style={{maxWidth: '70%'}}>
@@ -66,10 +71,15 @@ const ExpensesLog = ({navigation}) => {
       </View>
       <View style={{height: 20}} />
       <FlatList
-        data={allData}
+        data={itemsWithoutZeroAmount}
         renderItem={renderAllExpensesLogCard}
         keyExtractor={(item, index) => index}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <View style={Styles.emptyListContainer}>
+            <Text>No Expenses Log Found! </Text>
+          </View>
+        )}
       />
       <View style={{height: 20}} />
       <View style={Styles.totalAmountContainer}>
