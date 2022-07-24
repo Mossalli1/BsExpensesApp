@@ -9,97 +9,14 @@ import {
   TextInput,
 } from 'react-native';
 import {Styles} from './styles';
-// import {FontSizee} from '@Constants';
-// import FONTSIZE from '../../constants/fontSize';
 import {FONTSIZE} from '@constants';
 import dayjs from 'dayjs';
 import {useDispatch, useSelector} from 'react-redux';
 import {setExpensesValue} from '../../redux/reducers/expenses';
 
-let data = [
-  // {
-  //   espensesPurpose: 'Bought',
-  //   amount: 100,
-  //   category: 'Food',
-  //   date: '2022-07-23T17:06:31.635Z',
-  // },
-  // {
-  //   espensesPurpose: 'Current bill payment',
-  //   amount: 120,
-  //   category: 'Home rent',
-  //   date: '2022-07-23T17:07:31.635Z',
-  // },
-  // {
-  //   espensesPurpose: 'House tutoring',
-  //   amount: 120,
-  //   category: 'Childs education',
-  //   date: '2022-07-23T17:07:31.635Z',
-  // },
-];
-
-// let newData = [
-//   {
-//     category: 'Food',
-//     date: '2022-07-23T17:06:31.635Z',
-//     expenses: [
-//       {
-//         category: 'Food',
-//         espensesPurpose: 'Current bill payment',
-//         amount: 100,
-//         date: '2022-07-23T17:07:31.635Z',
-//       },
-//       {
-//         category: 'Food',
-//         espensesPurpose: 'Current bill payment 3',
-//         amount: 100,
-//         date: '2022-07-23T17:07:31.635Z',
-//       },
-//     ],
-//   },
-//   {
-//     category: 'Home rent',
-//     date: '2022-07-23T17:07:31.635Z',
-//     expenses: [
-//       {
-//         category: 'Home rent',
-//         espensesPurpose: 'Current bill payment',
-//         amount: 100,
-//         date: '2022-07-23T17:07:31.635Z',
-//       },
-//       {
-//         category: 'Home rent',
-//         espensesPurpose: 'Current bill payment 3',
-//         amount: 100,
-//         date: '2022-07-23T17:07:31.635Z',
-//       },
-//     ],
-//   },
-//   {
-//     category: 'Childs education',
-//     date: '2022-07-23T17:07:31.635Z',
-//     expenses: [
-//       {
-//         category: 'Childs education',
-//         espensesPurpose: 'Current bill payment',
-//         amount: 100,
-//         date: '2022-07-23T17:07:31.635Z',
-//       },
-//       {
-//         category: 'Childs education',
-//         espensesPurpose: 'Current bill payment 3',
-//         amount: 100,
-//         date: '2022-07-23T17:07:31.635Z',
-//       },
-//     ],
-//   },
-// ];
-
-let newData = [];
+let data = [];
 
 const HomeScreen = ({navigation}) => {
-  // const date = new Date();
-  // console.log('HomeScreen', date);
-  const [load, setLoad] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [addExpensesModalVisible, setAddExpensesModalVisible] =
     React.useState(false);
@@ -113,14 +30,12 @@ const HomeScreen = ({navigation}) => {
 
   //save data to redux
   const saveOnRedux = async () => {
-    // setExpences(amount);
-    dispatch(setExpensesValue(JSON.stringify(newData)));
+    dispatch(setExpensesValue(JSON.stringify(data)));
   };
 
   //get data from redux
   const getFromRedux = useSelector(state => state.expenses);
-  console.log('getFromRedux', getFromRedux);
-  newData = JSON.parse(getFromRedux.value);
+  data = JSON.parse(getFromRedux.value);
 
   const addCategory = async () => {
     if (categoryName !== '') {
@@ -136,7 +51,7 @@ const HomeScreen = ({navigation}) => {
           },
         ],
       };
-      newData.push(categoryData);
+      data.push(categoryData);
       saveOnRedux();
       setModalVisible(!modalVisible);
     } else {
@@ -153,7 +68,7 @@ const HomeScreen = ({navigation}) => {
         amount: parseInt(amount),
         date: dateTime,
       };
-      newData.map(item => {
+      data.map(item => {
         item.category === selectedCategory && item.expenses.push(expensesData);
       }),
         saveOnRedux();
@@ -169,7 +84,6 @@ const HomeScreen = ({navigation}) => {
   };
 
   const renderExpensesCard = ({item}) => {
-    console.log('renderExpensesCard', item);
     return (
       <TouchableOpacity
         style={Styles.expenseCard}
@@ -193,13 +107,16 @@ const HomeScreen = ({navigation}) => {
       </TouchableOpacity>
     );
   };
-  let newItems = newData.map(item => {
+
+  //Adding Subtotal to each category
+  let newItems = data.map(item => {
     return {
       ...item,
       subTotal: item.expenses.reduce((acc, curr) => curr.amount + acc, 0),
     };
   });
 
+  //Getting total amount of all categories
   let totalExpensesAmount = newItems.reduce(
     (total, obj) => obj.subTotal + total,
     0,
@@ -237,7 +154,6 @@ const HomeScreen = ({navigation}) => {
         visible={modalVisible}
         hardwareAccelerated={true}
         onRequestClose={() => {
-          // Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
         <View style={Styles.modalContainer}>
@@ -253,13 +169,8 @@ const HomeScreen = ({navigation}) => {
               <Button
                 onPress={() => setModalVisible(!modalVisible)}
                 title="Cancel"
-                // accessibilityLabel="Learn more about this purple button"
               />
-              <Button
-                onPress={() => addCategory()}
-                title="Add"
-                // accessibilityLabel="Learn more about this purple button"
-              />
+              <Button onPress={() => addCategory()} title="Add" />
             </View>
           </View>
         </View>
@@ -272,7 +183,6 @@ const HomeScreen = ({navigation}) => {
         visible={addExpensesModalVisible}
         hardwareAccelerated={true}
         onRequestClose={() => {
-          // Alert.alert('Modal has been closed.');
           setAddExpensesModalVisible(!addExpensesModalVisible);
         }}>
         <View style={Styles.modalContainer}>
@@ -308,13 +218,8 @@ const HomeScreen = ({navigation}) => {
                   setAddExpensesModalVisible(!addExpensesModalVisible)
                 }
                 title="Cancel"
-                // accessibilityLabel="Learn more about this purple button"
               />
-              <Button
-                onPress={() => addExpenses()}
-                title="Add"
-                // accessibilityLabel="Learn more about this purple button"
-              />
+              <Button onPress={() => addExpenses()} title="Add" />
             </View>
           </View>
         </View>

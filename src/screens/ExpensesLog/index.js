@@ -13,39 +13,27 @@ import {Styles} from './styles';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+let data = [];
+
 const ExpensesLog = ({navigation}) => {
-  const [expences, setExpences] = React.useState('');
-  const dispatch = useDispatch();
-  const saveOnRedux = async () => {
-    // setExpences(amount);
-    dispatch(setExpensesValue(expences));
-  };
-
   const getFromRedux = useSelector(state => state.expenses);
-  console.log('ExpencesLog', getFromRedux);
+  data = JSON.parse(getFromRedux.value);
 
-  const data = [
-    {
-      espensesPurpose: 'Bought rice',
-      amount: 100,
-      category: 'Food',
-      date: '2022-07-23T17:06:31.635Z',
-    },
-    {
-      espensesPurpose: 'Current bill payment',
-      amount: 120,
-      category: 'Home rent',
-      date: '2022-07-23T17:07:31.635Z',
-    },
-    {
-      espensesPurpose: 'House tutoring',
-      amount: 120,
-      category: 'Childs education',
-      date: '2022-07-23T17:07:31.635Z',
-    },
-  ];
-  let totalExpensesAmount = data.reduce((total, obj) => obj.amount + total, 0);
+  let newItems = data.map(item => {
+    return {
+      ...item,
+      subTotal: item.expenses.reduce((acc, curr) => curr.amount + acc, 0),
+    };
+  });
 
+  let allData = [];
+  newItems.forEach(item => {
+    item.expenses.forEach(exp => allData.push(exp));
+  });
+  let totalExpensesAmount = newItems.reduce(
+    (total, obj) => obj.subTotal + total,
+    0,
+  );
   const renderAllExpensesLogCard = ({item}) => (
     <View style={Styles.expenseCard}>
       <View style={{maxWidth: '70%'}}>
@@ -78,7 +66,7 @@ const ExpensesLog = ({navigation}) => {
       </View>
       <View style={{height: 20}} />
       <FlatList
-        data={data}
+        data={allData}
         renderItem={renderAllExpensesLogCard}
         keyExtractor={(item, index) => index}
         showsVerticalScrollIndicator={false}
@@ -93,14 +81,6 @@ const ExpensesLog = ({navigation}) => {
         </Text>
       </View>
       <View style={{height: 30}} />
-
-      {/* <Text>Amount : {getFromRedux.value}</Text>
-      <TextInput
-        style={{backgroundColor: 'red', width: 200}}
-        onChangeText={item => setExpences(item)}
-      />
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-      <Button onPress={() => saveOnRedux()} title="Save" /> */}
     </View>
   );
 };
