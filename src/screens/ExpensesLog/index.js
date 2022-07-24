@@ -49,7 +49,7 @@ const ExpensesLog = ({navigation}) => {
   const renderAllExpensesLogCard = ({item}) => (
     <View style={Styles.expenseCard}>
       <View style={{maxWidth: '70%'}}>
-        <Text style={{fontSize: FONTSIZE.large}}>{item.category}</Text>
+        <Text style={{fontSize: FONTSIZE.large}}>{item.espensesPurpose}</Text>
         <Text style={{fontSize: FONTSIZE.small}}>
           {dayjs(item.date).format('DD MMM, YYYY')}
         </Text>
@@ -58,7 +58,7 @@ const ExpensesLog = ({navigation}) => {
         </Text>
       </View>
       <View style={{maxWidth: '30%'}}>
-        <Text style={{fontSize: FONTSIZE.large}}>120</Text>
+        <Text style={{fontSize: FONTSIZE.large}}>{item.amount}</Text>
       </View>
     </View>
   );

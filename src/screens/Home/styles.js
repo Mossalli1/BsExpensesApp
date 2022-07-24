@@ -19,17 +19,17 @@ export const Styles = StyleSheet.create({
     justifyContent: 'space-between',
 
     backgroundColor: '#fff',
-    marginBottom: 5,
+    marginBottom: 15,
     padding: 15,
 
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 3,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 4,
-    // elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
     borderRadius: 5,
   },
   buttonStyle: {
@@ -55,7 +55,7 @@ export const Styles = StyleSheet.create({
   },
   modalItemContainer: {
     backgroundColor: '#fff',
-    height: '50%',
+    height: '60%',
     width: '100%',
     justifyContent: 'space-between',
     paddingHorizontal: 20,

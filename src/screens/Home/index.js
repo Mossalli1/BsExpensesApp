@@ -39,7 +39,11 @@ const HomeScreen = ({navigation}) => {
   // console.log('HomeScreen', date);
   const [load, setLoad] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [addExpensesModalVisible, setAddExpensesModalVisible] =
+    React.useState(false);
   const [categoryName, setCategoryName] = React.useState('');
+  const [amount, setAmount] = React.useState('');
+  const [expensesPurpose, setExpensesPurpose] = React.useState('');
 
   const addCategory = async () => {
     if (categoryName !== '') {
@@ -57,8 +61,14 @@ const HomeScreen = ({navigation}) => {
     }
   };
 
+  const addExpenses = async () => {
+    setAddExpensesModalVisible(!addExpensesModalVisible);
+  };
+
   const renderExpensesCard = ({item}) => (
-    <View style={Styles.expenseCard}>
+    <TouchableOpacity
+      style={Styles.expenseCard}
+      onPress={() => setAddExpensesModalVisible(!addExpensesModalVisible)}>
       <View style={{maxWidth: '70%'}}>
         <Text style={{fontSize: FONTSIZE.large}}>{item.category}</Text>
         <Text style={{fontSize: FONTSIZE.small}}>
@@ -70,8 +80,12 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={{maxWidth: '30%'}}>
         <Text style={{fontSize: FONTSIZE.large}}>{item.amount}</Text>
+        <Text
+          style={{fontSize: FONTSIZE.large, color: '#007AFF', paddingTop: 5}}>
+          Add
+        </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   let totalExpensesAmount = data.reduce((total, obj) => obj.amount + total, 0);
@@ -127,6 +141,51 @@ const HomeScreen = ({navigation}) => {
               />
               <Button
                 onPress={() => addCategory()}
+                title="Add"
+                // accessibilityLabel="Learn more about this purple button"
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={addExpensesModalVisible}
+        hardwareAccelerated={true}
+        onRequestClose={() => {
+          // Alert.alert('Modal has been closed.');
+          setAddExpensesModalVisible(!addExpensesModalVisible);
+        }}>
+        <View style={Styles.modalContainer}>
+          <View style={Styles.modalItemContainer}>
+            <View>
+              <TextInput
+                style={{height: 40, margin: 12, borderWidth: 1, padding: 10}}
+                placeholder="Expenses Purpose"
+                placeholderTextColor="#00000070"
+                value={expensesPurpose}
+                onChangeText={text => setExpensesPurpose(text)}
+              />
+              <TextInput
+                style={{height: 40, margin: 12, borderWidth: 1, padding: 10}}
+                placeholder="Expenses Amount"
+                placeholderTextColor="#00000070"
+                value={amount}
+                onChangeText={text => setAmount(text)}
+                keyboardType="numeric"
+              />
+            </View>
+            <View style={Styles.modalButtonContainer}>
+              <Button
+                onPress={() =>
+                  setAddExpensesModalVisible(!addExpensesModalVisible)
+                }
+                title="Cancel"
+                // accessibilityLabel="Learn more about this purple button"
+              />
+              <Button
+                onPress={() => addExpenses()}
                 title="Add"
                 // accessibilityLabel="Learn more about this purple button"
               />
